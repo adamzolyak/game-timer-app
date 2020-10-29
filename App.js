@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 
+import PlayerCard from './src/components/PlayerTile'
+import ClockTile from './src/components/ClockTile'
+
 export default function App() {
   const [timerActive, setTimerActive] = useState(false)
   const [currentPlayer, setCurrentPlayer] = useState(0)
@@ -18,6 +21,14 @@ export default function App() {
     }
   }, [timerActive, intervalElapsedSeconds])
 
+  const createNewTimer = () => {
+    setTimerActive(false)
+    setCurrentPlayer(0)
+    setIntervalElapsedSeconds(0)
+    setP1ElapsedSeconds(0)
+    setP2ElapsedSeconds(0)
+  }
+
   const startTimer = () => {
     setTimerActive(true)
   }
@@ -30,11 +41,15 @@ export default function App() {
     setIntervalElapsedSeconds(intervalElapsedSeconds + 1)
   }
 
-  const switchPlayer = () => {
+  const resetInterval = () => {
+    setIntervalElapsedSeconds(0)
+  }
+
+  const switchPlayer = (player) => {
     let newPlayer
 
     if (currentPlayer === 0) {
-      newPlayer = 1
+      newPlayer = player
     } else if (currentPlayer === 1) {
       newPlayer = 2
     } else if (currentPlayer === 2) {
@@ -57,46 +72,55 @@ export default function App() {
     }
   }
 
+  const handleTimerLongTap = () => {
+    createNewTimer()
+  }
+
   const handlePlayerTap = (player) => {
     console.log('player tap: ', player)
 
-    if (currentPlayer === 1) {
+    if (currentPlayer === 0) {
+      startTimer()
+      switchPlayer(player)
+    } else if (currentPlayer === 1) {
       setP1ElapsedSeconds(p1ElapsedSeconds + intervalElapsedSeconds)
       setIntervalElapsedSeconds(0)
       switchPlayer()
+      resetInterval()
     } else if (currentPlayer === 2) {
       setP2ElapsedSeconds(p2ElapsedSeconds + intervalElapsedSeconds)
       setIntervalElapsedSeconds(0)
       switchPlayer()
+      resetInterval()
     }
   }
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.p1container} onPress={() => handlePlayerTap(1)}>
-        <View>
-          <Text style={styles.p1text}>{`Player 1 - ${p1ElapsedSeconds} seconds`}</Text>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.timercontainer} onPress={handleTimerTap}>
-        <View>
-          <Text style={styles.timertext}>
-            {intervalElapsedSeconds} seconds - timer enabled {timerActive.toString()} - current
-            player {currentPlayer}
-          </Text>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.p2container} onPress={() => handlePlayerTap(2)}>
-        <View>
-          <Text style={styles.p2text}>{`Player 2 - ${p2ElapsedSeconds} seconds`}</Text>
-        </View>
-      </TouchableOpacity>
+      <PlayerCard
+        playerId={1}
+        currentPlayerId={currentPlayer}
+        elapsedSeconds={p1ElapsedSeconds}
+        onPress={() => handlePlayerTap(1)}
+      />
+      <ClockTile
+        timerActive={timerActive}
+        intervalElapsedSeconds={intervalElapsedSeconds}
+        onPress={handleTimerTap}
+        onLongPress={handleTimerLongTap}
+      />
+      <PlayerCard
+        playerId={2}
+        currentPlayerId={currentPlayer}
+        elapsedSeconds={p2ElapsedSeconds}
+        onPress={() => handlePlayerTap(2)}
+      />
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, flexDirection: 'row' },
   p1container: { flex: 2, backgroundColor: 'green' },
   p1text: { margin: 50 },
   p2container: { flex: 2, backgroundColor: 'red' },
