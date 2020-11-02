@@ -8,6 +8,8 @@ import {
   TapGestureHandler,
 } from 'react-native-gesture-handler'
 
+import TimeDisplay from './TimeDisplay'
+
 const ClockTile = ({ timerActive, intervalElapsedSeconds, onPress, onLongPress }) => {
   const resetGame = () => {
     return (
@@ -39,8 +41,12 @@ const ClockTile = ({ timerActive, intervalElapsedSeconds, onPress, onLongPress }
         minDurationMs={800}
       >
         <View style={styles.container}>
-          <Text style={styles.timerText}>{intervalElapsedSeconds}</Text>
-          <Text style={styles.timerTextLabel}>turn seconds</Text>
+          <Text style={styles.labelText}>Current Interval</Text>
+          <TimeDisplay
+            seconds={intervalElapsedSeconds}
+            styleTime={styles.timerTime}
+            styleLabel={styles.timerLabel}
+          />
           <MaterialCommunityIcons
             style={styles.timerIcon}
             name={timerActive ? 'pause-circle-outline' : 'play-circle-outline'}
@@ -62,7 +68,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  timerText: { color: 'white', fontSize: 50, paddingHorizontal: 10, textAlign: 'center' },
-  timerTextLabel: { color: 'white', fontSize: 20, paddingHorizontal: 20, textAlign: 'center' },
+  labelText: { color: 'white', fontSize: 25, paddingBottom: 20, paddingHorizontal: 10 },
+  timerTime: { color: 'white', fontSize: 50 },
+  timerLabel: { color: 'white', fontSize: 20 },
   timerIcon: { paddingTop: 50 },
 })
