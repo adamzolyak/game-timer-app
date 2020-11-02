@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "game-timer-app",
+    "name": "Game Timer App",
     "slug": "game-timer-app",
     "version": "1.0.0",
     "orientation": "landscape",
@@ -22,6 +22,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": ""
+    "description": "A timer for keeping track of each player's time in a 2 player game.  Make your own rules."
   }
 }

@@ -121,10 +121,4 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, flexDirection: 'row' },
-  p1container: { flex: 2, backgroundColor: 'green' },
-  p1text: { margin: 50 },
-  p2container: { flex: 2, backgroundColor: 'red' },
-  p2text: { margin: 50 },
-  timercontainer: { flex: 1, backgroundColor: 'purple' },
-  timertext: { margin: 50 },
 })

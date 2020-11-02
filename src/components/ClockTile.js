@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  labelText: { color: 'white', fontSize: 25, paddingBottom: 20, paddingHorizontal: 10 },
-  timerTime: { color: 'white', fontSize: 50 },
-  timerLabel: { color: 'white', fontSize: 20 },
-  timerIcon: { paddingTop: 50 },
+  labelText: { color: 'white', fontSize: 20, paddingBottom: 15, paddingHorizontal: 10 },
+  timerTime: { color: 'white', fontSize: 40 },
+  timerLabel: { color: 'white', fontSize: 16 },
+  timerIcon: { paddingTop: 20 },
 })
